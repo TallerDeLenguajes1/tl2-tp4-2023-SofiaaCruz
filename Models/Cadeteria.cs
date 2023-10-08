@@ -1,8 +1,9 @@
 using EspacioCadete;
-using EspacioCliente;
 using EspacioInforme;
-using EspacioLecturaArchivos;
 using EspacioPedidos;
+using EspacioAccesoADatosCadeteria;
+using EspacioAccesoADatosCadete;
+using EspacioAccesoADatosPedidos;
 namespace EmpresaDeCadeteria;
 
 public class Cadeteria
@@ -33,7 +34,8 @@ public class Cadeteria
         this.nombre = nombre;
         this.telefono = telefono;
         listadoCadetes = new List<Cadete>();
-        listadoPedidos = new List<Pedido>();
+        AccesoADatosPedido archivoPedido = new AccesoADatosPedido();
+        listadoPedidos = archivoPedido.Obtener();
     }
 
     public bool CargaDeDatos(string tipoDeAcceso)
@@ -41,12 +43,13 @@ public class Cadeteria
         bool aux = false;
         if (tipoDeAcceso == "csv")
         {
-            ArchivosCsv Archivo = new ArchivosCsv();
-            List<Cadeteria>? AuxCadeteria = Archivo.ArchivoCadeteria("Cadeteria.csv");
-            List<Cadete>? AuxCadete = Archivo.ArchivoCadete("Cadetes.csv");
+            ArchivosCsvCadeteria ArchivoCadeteria = new ArchivosCsvCadeteria();
+            ArchivosCsvCade ArchivoCadete = new ArchivosCsvCade();
+            Cadeteria? AuxCadeteria = ArchivoCadeteria.Obtener();
+            List<Cadete>? AuxCadete = ArchivoCadete.Obtener();
             if(AuxCadete != null && AuxCadeteria != null)
             {
-                instance = AuxCadeteria[0];
+                instance = AuxCadeteria;
                 instance.agregarCadetes(AuxCadete);
                 aux = true;
             }
@@ -55,12 +58,13 @@ public class Cadeteria
         {
             if(tipoDeAcceso == "json")
             {
-                ArchivosJson Archivo = new ArchivosJson();
-                List<Cadeteria>? AuxCadeteria = Archivo.ArchivoCadeteria("Cadeteria.json");
-                List<Cadete>? AuxCadete = Archivo.ArchivoCadete("Cadetes.json");
+                ArchivosJsonCadeteria ArchivoCadeteria = new ArchivosJsonCadeteria();
+                ArchivosJsonCadete ArchivoCadete = new ArchivosJsonCadete();
+                Cadeteria? AuxCadeteria = ArchivoCadeteria.Obtener();
+                List<Cadete>? AuxCadete = ArchivoCadete.Obtener();
                 if(AuxCadete != null && AuxCadeteria != null)
                 {
-                    instance = AuxCadeteria[0];
+                    instance = AuxCadeteria;
                     instance.agregarCadetes(AuxCadete);
                     aux = true;
                 }
@@ -101,8 +105,12 @@ public class Cadeteria
     public bool AgregarPedido(Pedido nuevoPedido)
     {
         bool aux = false;
+        nuevoPedido.IdCadete = -9999;
+        nuevoPedido.Numero = listadoPedidos.Count();
         if(nuevoPedido != null){
             listadoPedidos.Add(nuevoPedido);
+            AccesoADatosPedido guardarPed = new AccesoADatosPedido();
+            guardarPed.Guardar(listadoPedidos);
             aux = true;
         }
         
@@ -123,6 +131,7 @@ public class Cadeteria
 
     public bool CambiarEstadoPedido (int numPedido, int estado)
     {
+        AccesoADatosPedido pedidoGuardar = new AccesoADatosPedido();
         Pedido? PedidoACambiarEstado = listadoPedidos.Find(ped => ped.Numero == numPedido);
         if(PedidoACambiarEstado != null)
         {
@@ -131,6 +140,7 @@ public class Cadeteria
                 PedidoACambiarEstado.Estado = estadoPedido.entregado;
                 if(PedidoACambiarEstado.Estado == estadoPedido.entregado)
                 {
+                    pedidoGuardar.Guardar(listadoPedidos);
                     return true;
                 }
                 else
@@ -141,7 +151,9 @@ public class Cadeteria
             else 
             {
                 PedidoACambiarEstado.Estado = estadoPedido.cancelado;
-                if(PedidoACambiarEstado.Estado == estadoPedido.cancelado){
+                if(PedidoACambiarEstado.Estado == estadoPedido.cancelado)
+                {
+                    pedidoGuardar.Guardar(listadoPedidos);
                     return true;
                 }
                 else
@@ -157,13 +169,15 @@ public class Cadeteria
     }
     public bool AsignarCadeteAPedido(int idCadete, int idPedido)
     {
+        AccesoADatosPedido pedidoGuardar = new AccesoADatosPedido();
         Cadete? cadeteElegido = listadoCadetes.Find(cad => cad.Id == idCadete);
         Pedido? pedidoElegido = listadoPedidos.Find(ped => ped.Numero == idPedido);
         if(cadeteElegido != null && pedidoElegido != null)
         {
             pedidoElegido.IdCadete = cadeteElegido.Id;
-            if(pedidoElegido.IdCadete != -9999)
+            if(pedidoElegido.IdCadete == cadeteElegido.Id)
             {
+                pedidoGuardar.Guardar(listadoPedidos);
                 return true;
             }else
             {

@@ -33,3 +33,4 @@ C:\Users\sofia\OneDrive\Escritorio\Facultad\Tercer año\2° Cuatrimestre\Taller 
 C:\Users\sofia\OneDrive\Escritorio\Facultad\Tercer año\2° Cuatrimestre\Taller de lenguaje II\TP4\tl2-tp4-2023-SofiaaCruz\obj\Debug\net7.0\ref\tl2-tp4-2023-SofiaaCruz.dll
 C:\Users\sofia\OneDrive\Escritorio\Facultad\Tercer año\2° Cuatrimestre\Taller de lenguaje II\TP4\tl2-tp4-2023-SofiaaCruz\bin\Debug\net7.0\Cadeteria.json
 C:\Users\sofia\OneDrive\Escritorio\Facultad\Tercer año\2° Cuatrimestre\Taller de lenguaje II\TP4\tl2-tp4-2023-SofiaaCruz\bin\Debug\net7.0\Cadetes.json
+C:\Users\sofia\OneDrive\Escritorio\Facultad\Tercer año\2° Cuatrimestre\Taller de lenguaje II\TP4\tl2-tp4-2023-SofiaaCruz\bin\Debug\net7.0\Pedidos.json

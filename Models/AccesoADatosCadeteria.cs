@@ -1,20 +1,56 @@
 using System.Text.Json;
 using EmpresaDeCadeteria;
-using EspacioCadete;
-using EspacioPedidos;
 
-namespace EspacioLecturaArchivos;
+namespace EspacioAccesoADatosCadeteria;
 
-public abstract class LecturaArchivos
+public abstract class AccesoADatosCadeteria
 {
-    public virtual List<Cadete>? ArchivoCadete(string nombreArchivo){
-        return null;
-    }
-    public virtual List<Cadeteria>? ArchivoCadeteria(string nombreArchivo)
+    public virtual Cadeteria? Obtener()
     {
         return null;
     }
 }
+
+public class ArchivosCsvCadeteria : AccesoADatosCadeteria
+{
+    public override Cadeteria? Obtener()
+    {
+        Cadeteria? nuevaCadeteria = null;
+        List<Cadeteria> ListaAux = new List<Cadeteria>();
+        if(File.Exists("Cadeteria.csv"))
+        {
+            StreamReader strCadeteria = new StreamReader("Cadeteria.csv");
+            string? linea;
+            while ((linea = strCadeteria.ReadLine()) != null)
+            {
+                string[] aux = linea.Split(",");
+                Cadeteria CadeteriaAux = new Cadeteria(aux[0], aux[1]);
+                ListaAux.Add(CadeteriaAux);
+            }
+            nuevaCadeteria = ListaAux[0];
+        }
+        return nuevaCadeteria;
+    }
+}
+
+public class ArchivosJsonCadeteria : AccesoADatosCadeteria
+{
+    public override Cadeteria? Obtener()
+    {
+        Cadeteria? nuevaCadeteria = null;
+        if(File.Exists("Cadeteria.json"))
+        {
+            string jsonCadeteria = File.ReadAllText("Cadeteria.json");
+            List<Cadeteria>? ListaAux = JsonSerializer.Deserialize<List<Cadeteria>>(jsonCadeteria);
+            if(ListaAux != null)
+            {
+                nuevaCadeteria = ListaAux[0];
+            }
+        }
+        return nuevaCadeteria;
+    }
+}
+/* 
 
 public class ArchivosCsv : LecturaArchivos
 {
@@ -87,4 +123,4 @@ public class ArchivosJson : LecturaArchivos
             return null;
         }
     }
-}
+} */

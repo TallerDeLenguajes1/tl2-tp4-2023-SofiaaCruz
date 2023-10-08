@@ -38,6 +38,12 @@ public class CadeteriaController : ControllerBase
         return Ok(listCadetes);
     }
 
+    [HttpGet("GetInforme")]
+    public ActionResult<string> GetInforme()
+    {
+        return Ok(cadeteria.GetInforme());
+    } 
+    
     [HttpPost("CargarDatos")]
     public ActionResult<string> CargaDeDatos(string tipoDeAcceso)
     {
@@ -50,15 +56,11 @@ public class CadeteriaController : ControllerBase
             return BadRequest("ERROR, no se cargaron los datos correctamente");
         }
     }
-    [HttpGet("GetInforme")]
-    public ActionResult<string> GetInforme()
-    {
-        return Ok(cadeteria.GetInforme());
-    } 
 
     [HttpPost("AgregarPedido")]
     public ActionResult<string> AgregarPedido(Pedido pedido)
     {
+        pedido.IdCadete = -9999;
         if(cadeteria.AgregarPedido(pedido))
         {
             return Ok("El Pedido fue agregado de manera exitosa");
