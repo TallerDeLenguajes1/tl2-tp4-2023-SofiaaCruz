@@ -1,0 +1,74 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\sofia\\OneDrive\\Escritorio\\Facultad\\Tercer año\\2° Cuatrimestre\\Taller de lenguaje II\\TP4\\tl2-tp4-2023-SofiaaCruz\\tl2-tp4-2023-SofiaaCruz.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\sofia\\OneDrive\\Escritorio\\Facultad\\Tercer año\\2° Cuatrimestre\\Taller de lenguaje II\\TP4\\tl2-tp4-2023-SofiaaCruz\\tl2-tp4-2023-SofiaaCruz.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\sofia\\OneDrive\\Escritorio\\Facultad\\Tercer año\\2° Cuatrimestre\\Taller de lenguaje II\\TP4\\tl2-tp4-2023-SofiaaCruz\\tl2-tp4-2023-SofiaaCruz.csproj",
+        "projectName": "tl2-tp4-2023-SofiaaCruz",
+        "projectPath": "C:\\Users\\sofia\\OneDrive\\Escritorio\\Facultad\\Tercer año\\2° Cuatrimestre\\Taller de lenguaje II\\TP4\\tl2-tp4-2023-SofiaaCruz\\tl2-tp4-2023-SofiaaCruz.csproj",
+        "packagesPath": "C:\\Users\\sofia\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sofia\\OneDrive\\Escritorio\\Facultad\\Tercer año\\2° Cuatrimestre\\Taller de lenguaje II\\TP4\\tl2-tp4-2023-SofiaaCruz\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\sofia\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

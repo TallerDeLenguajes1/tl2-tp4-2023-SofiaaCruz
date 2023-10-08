@@ -1,0 +1,26 @@
+[
+    {
+        "Id":1,
+        "Nombre":"Megumi",
+        "Direccion":"Dire1",
+        "Telefono":"3818123795"
+    },
+    {
+        "Id":2,
+        "Nombre":"Satoru",
+        "Direccion":"Dire2",
+        "Telefono":"3814874723"
+    },
+    {
+        "Id":3,
+        "Nombre":"Hori",
+        "Direccion":"Dire3",
+        "Telefono":"3812982645"
+    },
+    {
+        "Id":4,
+        "Nombre":"Anya",
+        "Direccion":"Dire4",
+        "Telefono":"3819898524"
+    }
+]
