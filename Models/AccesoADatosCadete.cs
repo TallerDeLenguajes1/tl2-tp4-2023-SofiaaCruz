@@ -8,6 +8,10 @@ public abstract class AccesoADatosCadete
     {
         return null;
     }
+    public virtual void Guardar(List<Cadete> cadetes)
+    {
+
+    }
 }
 
 public class ArchivosCsvCade : AccesoADatosCadete
@@ -29,8 +33,22 @@ public class ArchivosCsvCade : AccesoADatosCadete
                 ListaAux.Add(CadeteAux);
             }
             nuevalistaCadete = ListaAux;
+            strCadeteria.Close();//NO OLVIDAR XD
         }
+        
         return nuevalistaCadete;
+    }
+
+    public override void Guardar(List<Cadete> cadetes)
+    {
+        string info;
+        StreamWriter strCadetes = new StreamWriter("Cadetes.csv");
+        foreach(var cad in cadetes)
+        {
+            info = $"{cad.Id},{cad.Nombre},{cad.Direccion},{cad.Telefono}";
+            strCadetes.WriteLine(info);
+        }
+        strCadetes.Close();
     }
 }
 
@@ -49,5 +67,11 @@ public class ArchivosJsonCadete : AccesoADatosCadete
             }
         }
         return nuevaListaCadete;
+    }
+
+    public override void Guardar(List<Cadete> cadetes)
+    {
+        string info = JsonSerializer.Serialize(cadetes);
+        File.WriteAllText("Pedidos.json", info);
     }
 }

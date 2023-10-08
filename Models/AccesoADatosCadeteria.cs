@@ -28,6 +28,7 @@ public class ArchivosCsvCadeteria : AccesoADatosCadeteria
                 ListaAux.Add(CadeteriaAux);
             }
             nuevaCadeteria = ListaAux[0];
+            strCadeteria.Close();
         }
         return nuevaCadeteria;
     }

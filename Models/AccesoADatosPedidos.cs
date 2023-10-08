@@ -4,7 +4,7 @@ using System.Text.Json;
 namespace EspacioAccesoADatosPedidos;
 public  class AccesoADatosPedido
 {
-    public  List<Pedido>? Obtener()
+    public List<Pedido>? Obtener()
     {
         List<Pedido>? nuevaListaPedido = null;
         if(File.Exists("Pedidos.json"))
@@ -18,7 +18,7 @@ public  class AccesoADatosPedido
         }
         return nuevaListaPedido;
     }
-    public virtual void Guardar(List<Pedido> pedidos)
+    public void Guardar(List<Pedido> pedidos)
     {
         string info = JsonSerializer.Serialize(pedidos);
         File.WriteAllText("Pedidos.json", info);

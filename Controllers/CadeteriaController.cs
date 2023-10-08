@@ -43,6 +43,35 @@ public class CadeteriaController : ControllerBase
     {
         return Ok(cadeteria.GetInforme());
     } 
+
+    [HttpGet("BuscarPedido/{id}")]
+    public ActionResult<Pedido> GetPedido(int id)
+    {
+        Pedido? encontrado = cadeteria.buscarPedido(id);
+        if (encontrado != null)
+        {
+            return Ok(encontrado);
+        }
+        else
+        {
+            return NotFound("EL pedido solicitado no se encuentra");
+        }
+    }
+
+
+    [HttpGet("BuscarCadete/{id}")]
+    public ActionResult<Cadete> Getcadete(int id)
+    {
+        Cadete? encontrado = cadeteria.buscarCadete(id);
+        if(encontrado != null)
+        {
+            return Ok(encontrado);
+        }
+        else
+        {
+            return NotFound("El cadete solicitado no se encuentra");
+        }
+    }
     
     [HttpPost("CargarDatos")]
     public ActionResult<string> CargaDeDatos(string tipoDeAcceso)
@@ -55,6 +84,24 @@ public class CadeteriaController : ControllerBase
         {
             return BadRequest("ERROR, no se cargaron los datos correctamente");
         }
+    }
+    
+    [HttpPost("AddCadete")]
+    public ActionResult<string> AddCadete(string nombre, string direccion, string telefono)
+    {
+        if(string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(direccion) || string.IsNullOrEmpty(telefono))
+        {
+            return BadRequest("No se ingresador los datos necesario");
+        }
+        if(cadeteria.AgregarCadete(nombre,direccion,telefono))
+        {
+            return Ok("El cadete fue agregado");
+        }
+        else
+        {
+            return StatusCode(500, "ERROR");
+        }
+        
     }
 
     [HttpPost("AgregarPedido")]

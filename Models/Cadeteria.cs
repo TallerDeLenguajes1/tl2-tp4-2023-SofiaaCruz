@@ -35,7 +35,14 @@ public class Cadeteria
         this.telefono = telefono;
         listadoCadetes = new List<Cadete>();
         AccesoADatosPedido archivoPedido = new AccesoADatosPedido();
-        listadoPedidos = archivoPedido.Obtener();
+        List<Pedido>? aux = archivoPedido.Obtener();
+        if(aux != null)
+        {
+            listadoPedidos = aux;
+        }else
+        {
+            ListadoPedidos = new List<Pedido>();
+        }
     }
 
     public bool CargaDeDatos(string tipoDeAcceso)
@@ -106,7 +113,7 @@ public class Cadeteria
     {
         bool aux = false;
         nuevoPedido.IdCadete = -9999;
-        nuevoPedido.Numero = listadoPedidos.Count();
+        nuevoPedido.Numero = listadoPedidos.Count +1;
         if(nuevoPedido != null){
             listadoPedidos.Add(nuevoPedido);
             AccesoADatosPedido guardarPed = new AccesoADatosPedido();
@@ -237,5 +244,34 @@ public class Cadeteria
     private void agregarCadetes(List<Cadete> listadoCadetes)
     {
         this.listadoCadetes = listadoCadetes;
+    }
+
+    public Pedido? buscarPedido(int id)
+    {
+        Pedido? pedidoEncontrado = listadoPedidos.FirstOrDefault(ped => ped.Numero == id);//FirstOrDefault retorna el primer elemento que cumpla con la condicion dada.
+        return pedidoEncontrado;
+    }
+
+    public Cadete? buscarCadete(int id)
+    {
+        Cadete? encontrado = listadoCadetes.FirstOrDefault(cad => cad.Id == id);
+        return encontrado;
+    }
+
+    public bool AgregarCadete(string nombre, string direccion, string telefono)
+    {
+        bool aux = false;
+        ArchivosCsvCade archivoCsvCad = new ArchivosCsvCade();
+        ArchivosJsonCadete archivosJsonCad = new ArchivosJsonCadete();
+        int num = listadoCadetes.Count +1;
+        Cadete nuevoCadete = new Cadete(num, nombre, direccion, telefono);
+        if(nuevoCadete != null)
+        {
+            listadoCadetes.Add(nuevoCadete);
+            archivoCsvCad.Guardar(listadoCadetes);
+            archivosJsonCad.Guardar(listadoCadetes);
+            aux = true;
+        }
+        return aux;
     }
 }
